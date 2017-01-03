@@ -21,7 +21,7 @@ TrelloPowerUp.initialize({
   'attachment-sections': function(t, options){
     return t.get('card', 'shared', 'time-logs', [])
       .then(function (logs) {
-        if(claimed.length === 0) {
+        if(logs.length === 0) {
           return [];
         }
         return [
