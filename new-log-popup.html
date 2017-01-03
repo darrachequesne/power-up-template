@@ -28,10 +28,14 @@
         <select id="new-log-select-day" class="new-log-value-selector"></select>
       </div>
       <div class="u-clearfix">
+        <input id="new-log-input-hours" class="new-log-value-input" type="number" value="0" max="23" min="0" />
+        <input id="new-log-input-minutes" class="new-log-value-input" type="number" value="0" max="55" min="0" step="5" />
+      </div>
+      <div class="u-clearfix">
         <label class="time-estimation-select-label">
           Duration
         </label>
-        <input id="new-log-input-duration" type="number" value="30" min="0" step="5" />
+        <input id="new-log-input-duration" class="new-log-value-input" type="number" value="30" min="0" step="5" />
         <select id="new-log-input-unit" class="new-log-value-selector">
           <option value="m">min</option>
           <option value="h">h</option>

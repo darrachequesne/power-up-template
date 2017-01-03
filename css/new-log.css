@@ -5,7 +5,7 @@
   border-radius: 4px;
 }
 
-#new-log-input-duration {
+input.new-log-value-input {
   display: inline-block;
   width: 32%;
 }

@@ -7,6 +7,8 @@ var today = new Date();
 var yearSelector = document.getElementById('new-log-select-year');
 var monthSelector = document.getElementById('new-log-select-month');
 var daySelector = document.getElementById('new-log-select-day');
+var hours = document.getElementById('new-log-input-hours');
+var minutes = document.getElementById('new-log-input-minutes');
 var duration = document.getElementById('new-log-input-duration');
 var unit = document.getElementById('new-log-input-unit');
 
@@ -40,6 +42,9 @@ function updateDaysInMonth(){
 
 function initDay(){
   daySelector.value = today.getDate();
+  hours.value = today.getHours();
+  var min = today.getMinutes();
+  minutes.value = min - min % 5; // round at 5 minutes
 }
 
 initYear();
@@ -61,7 +66,7 @@ function onAddLog(){
         duration: getDuration()
       }
       logs.push(newLog);
-      t.set('card', 'shared', 'time-logs', logs);
+      return t.set('card', 'shared', 'time-logs', logs);
     })
     .then(function(){
       t.closePopup();
