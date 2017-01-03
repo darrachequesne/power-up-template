@@ -2,13 +2,17 @@
 .time-estimation-select-hours {
   float: left;
   width: 50%;
+  box-sizing: border-box;
+  padding-right: 9pt;
 }
 
 .time-estimation-select-minutes {
   float: right;
   width: 50%;
+  box-sizing: border-box;
 }
 
 #remove-estimate {
   float: right;
+  margin-right: 0;
 }

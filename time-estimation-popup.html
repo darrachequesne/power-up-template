@@ -7,21 +7,23 @@
   <body>
     <div id="content">
       <form>
-        <div class="time-estimation-select-hours">
-          <label class="time-estimation-select-label">
-            Hours
-            <input id="time-estimation-input-hours" type="number" value="0" min="0" />
-          </label>
-        </div>
-        <div class="time-estimation-select-minutes">
-          <label class="time-estimation-select-label">
-            Minutes
-            <input id="time-estimation-input-minutes" type="number" value="30" min="0" step="5" />
-          </label>
+        <div class="u-clearfix">
+          <div class="time-estimation-select-hours">
+            <label class="time-estimation-select-label">
+              Hours
+              <input id="time-estimation-input-hours" type="number" value="0" min="0" />
+            </label>
+          </div>
+          <div class="time-estimation-select-minutes">
+            <label class="time-estimation-select-label">
+              Minutes
+              <input id="time-estimation-input-minutes" type="number" value="30" min="0" step="5" />
+            </label>
+          </div>
         </div>
         <div>
-          <button id="save-estimate" class="mod-primary" type="submit">Save</button>
-          <button id="remove-estimate" class="mod-danger" type="button">Remove</button>
+          <button id="save-estimate" class="mod-primary">Save</button>
+          <button id="remove-estimate" class="mod-danger">Remove</button>
         </div>
       </form>
     </div>
