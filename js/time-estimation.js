@@ -27,5 +27,12 @@ document.getElementById('save-estimate').addEventListener('click', onSaveEstimat
 document.getElementById('remove-estimate').addEventListener('click', onRemoveEstimate);
 
 t.render(function(){
-  t.sizeTo('#content');
+  t.get('card', 'shared', 'time-estimate', 30)
+  .then(function (estimate) {
+    hours.value = estimate / 60;
+    minutes.value = estimate % 60;
+  })
+  .then(function () {
+    t.sizeTo('#content');
+  })
 });
