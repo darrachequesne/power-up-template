@@ -1,12 +1,46 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://trello.com/power-ups/power-up.css">
+    <link rel="stylesheet" href="./css/new-log.css">
     <script src="https://trello.com/power-ups/power-up.min.js"></script>
   </head>
   <body>
     <div id="content">
-      <p>New log</p>
-      <input />
+      <div class="u-clearfix">
+        <label class="time-estimation-select-label">
+          Start
+        </label>
+        <select id="new-log-select-year" class="new-log-value-selector"></select>
+        <select id="new-log-select-month" class="new-log-value-selector">
+          <option value="1">Jan</option>
+          <option value="2">Feb</option>
+          <option value="3">Mar</option>
+          <option value="4">Apr</option>
+          <option value="5">May</option>
+          <option value="6">Jun</option>
+          <option value="7">Jul</option>
+          <option value="8">Aug</option>
+          <option value="9">Sep</option>
+          <option value="10">Oct</option>
+          <option value="11">Nov</option>
+          <option value="12">Dec</option>
+        </select>
+        <select id="new-log-select-day" class="new-log-value-selector"></select>
+      </div>
+      <div class="u-clearfix">
+        <label class="time-estimation-select-label">
+          Duration
+        </label>
+        <input id="new-log-input-duration" type="number" value="30" min="0" step="5" />
+        <select id="new-log-input-unit" class="new-log-value-selector">
+          <option value="m">min</option>
+          <option value="h">h</option>
+        </select>
+      </div>
+      <div>
+        <button id="add-log" class="mod-primary">Add</button>
+      </div>
     </div>
+    <script src="./js/new-log.js"></script>
   </body>
 </html>
