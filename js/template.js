@@ -19,7 +19,23 @@ var openNewLogPopup = function(t){
 
 TrelloPowerUp.initialize({
   'attachment-sections': function(t, options){
-    return [];
+    return t.get('card', 'shared', 'time-logs', [])
+      .then(function (logs) {
+        if(claimed.length === 0) {
+          return [];
+        }
+        return [
+          {
+            icon: GRAY_ICON,
+            title: "Time logs",
+            claimed: [],
+            content: {
+              type: 'iframe',
+              url: t.signUrl('./details.html')
+            }
+          }
+        ];
+      });
   },
   'card-buttons': function(t, options) {
     return [{

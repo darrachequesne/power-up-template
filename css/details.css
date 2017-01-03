@@ -1,0 +1,40 @@
+
+.details-logs-list {
+  list-style-type: none;
+}
+
+.details-progress {
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.details-progress-percentage {
+  color: #8c8c8c;
+  font-size: 11px;
+  line-height: 10px;
+  position: absolute;
+  left: 0;
+  top: -1px;
+  text-align: center;
+  width: 38px;
+}
+
+.details-progress-bar {
+  background: #D6DADC;
+  border-radius: 5px;
+  clear: both;
+  height: 8px;
+  margin: 0 0 0 38px;
+  overflow: hidden;
+  position: relative;
+}
+
+.details-progress-bar-current {
+  background: #5BA4CF;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  -webkit-transition: width .14s ease-in,background .14s ease-in;
+  transition: width .14s ease-in,background .14s ease-in;
+}
