@@ -28,7 +28,7 @@ TrelloPowerUp.initialize({
           {
             icon: GRAY_ICON,
             title: "Time logs",
-            claimed: [],
+            claimed: [{}],
             content: {
               type: 'iframe',
               url: t.signUrl('./details.html')

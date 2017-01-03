@@ -1,8 +1,9 @@
 /* global TrelloPowerUp */
 
+var Promise = TrelloPowerUp.Promise;
 var t = TrelloPowerUp.iframe();
 
-var logs = document.getElementsByClassName('details-logs-list')[0];
+var logsList = document.getElementsByClassName('details-logs-list')[0];
 var progressPercentage = document.getElementsByClassName('details-progress-percentage')[0];
 var progress = document.getElementsByClassName('details-progress-bar-current')[0];
 
@@ -22,7 +23,7 @@ t.render(function(){
     for (var i = 0, l = logs.length; i < l; i++) {
       var item = document.createElement('li');
       item.innerHTML = formatLog(logs[i]);
-      logs.append(item);
+      logsList.append(item);
 
       duration += logs[i].duration;
     }
