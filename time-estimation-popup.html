@@ -1,12 +1,30 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://trello.com/power-ups/power-up.css">
+    <link rel="stylesheet" href="./css/time-estimation.css">
     <script src="https://trello.com/power-ups/power-up.min.js"></script>
   </head>
   <body>
     <div id="content">
-      <p>Time estimation</p>
-      <input />
+      <form>
+        <div class="time-estimation-select-hours">
+          <label class="time-estimation-select-label">
+            Hours
+            <input id="time-estimation-input-hours" type="number" value="0" min="0" />
+          </label>
+        </div>
+        <div class="time-estimation-select-minutes">
+          <label class="time-estimation-select-label">
+            Minutes
+            <input id="time-estimation-input-minutes" type="number" value="30" min="0" step="5" />
+          </label>
+        </div>
+        <div>
+          <button id="save-estimate" class="mod-primary" type="submit">Save</button>
+          <button id="remove-estimate" class="mod-danger" type="button">Remove</button>
+        </div>
+      </form>
     </div>
+    <script src="./js/time-estimation.js"></script>
   </body>
 </html>

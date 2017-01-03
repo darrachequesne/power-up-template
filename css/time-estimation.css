@@ -1,0 +1,14 @@
+
+.time-estimation-select-hours {
+  float: left;
+  width: 50%;
+}
+
+.time-estimation-select-minutes {
+  float: right;
+  width: 50%;
+}
+
+#remove-estimate {
+  float: right;
+}
