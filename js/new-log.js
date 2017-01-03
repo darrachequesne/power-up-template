@@ -63,6 +63,8 @@ function onAddLog(){
         year: yearSelector.value,
         month: monthSelector.value,
         day: daySelector.value,
+        h: hours.value,
+        min: minutes.value,
         duration: getDuration()
       }
       logs.push(newLog);
