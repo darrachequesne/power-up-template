@@ -41,6 +41,7 @@ t.render(function(){
 
     var duration = 0;
 
+    logsList.innerHTML = '';
     for (var i = 0, l = logs.length; i < l; i++) {
       var item = document.createElement('li');
       item.innerHTML = formatLog(logs[i]);
