@@ -25,3 +25,7 @@ var onRemoveEstimate = function(){
 
 document.getElementById('save-estimate').addEventListener('click', onSaveEstimate);
 document.getElementById('remove-estimate').addEventListener('click', onRemoveEstimate);
+
+t.render(function(){
+  t.sizeTo('#content');
+});

@@ -70,7 +70,7 @@ function onAddLog(){
 
 yearSelector.addEventListener('change', updateDaysInMonth);
 monthSelector.addEventListener('change', updateDaysInMonth);
-document.getElementById('add-log').addEventListener('click', onAddLog);
+document.getElementById('new-log-btn-add-log').addEventListener('click', onAddLog);
 
 t.render(function(){
   t.sizeTo('#content');
