@@ -8,14 +8,14 @@ var progressPercentage = document.getElementsByClassName('details-progress-perce
 var progress = document.getElementsByClassName('details-progress-bar-current')[0];
 
 function zpad(n){
-  return (n > 10 ? '' : '0') + n;
+  return (n >= 10 ? '' : '0') + n;
 }
 
 // returns 2016-01-01 12h00 [1h30]
-function formatLog(log){
+function formatLog(log, index){
   var output = '<b>';
   output += log.year + '-' + zpad(log.month) + '-' + zpad(log.day) + ' ';
-  output += log.h + 'h' + zpad(log.min) + ' ';
+  output += zpad(log.h) + 'h' + zpad(log.min) + ' ';
 
   output += '[';
   var hours = Math.floor(log.duration / 60);
@@ -44,9 +44,15 @@ t.render(function(){
     logsList.innerHTML = '';
     for (var i = 0, l = logs.length; i < l; i++) {
       var item = document.createElement('li');
-      item.innerHTML = formatLog(logs[i]);
-      logsList.append(item);
+      item.innerHTML = formatLog(logs[i], i);
 
+      var remove = document.createElement('a');
+      remove.innerHTML = 'Remove';
+      remove.className = 'details-btn-remove-log';
+      remove.addEventListener('click', onRemoveLog(i));
+      item.append(remove);
+
+      logsList.append(item);
       duration += logs[i].duration;
     }
 
@@ -64,3 +70,15 @@ t.render(function(){
     t.sizeTo('#content');
   })
 });
+
+function onRemoveLog(i){
+  return function _onRemoveLog(){
+    t.get('card', 'shared', 'time-logs', [])
+      .then(function (logs){
+        if (i >= logs.length) return;
+
+        logs.splice(i, 1);
+        return t.set('card', 'shared', 'time-logs', logs);
+      })
+  }
+}

@@ -44,3 +44,10 @@
 .details-progress-bar-current.complete {
   background-color: #EB5A46;
 }
+
+.details-btn-remove-log {
+  margin-left: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #8c8c8c;
+}
