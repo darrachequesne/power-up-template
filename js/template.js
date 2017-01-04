@@ -1,7 +1,6 @@
 /* global TrelloPowerUp */
 
-var WHITE_ICON = './images/icon-white.svg';
-var GRAY_ICON = './images/icon-gray.svg';
+var GRAY_ICON = './images/clock.svg';
 
 var openTimeEstimationPopup = function(t){
   return t.popup({
