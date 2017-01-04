@@ -2,17 +2,33 @@
 
 var GRAY_ICON = './images/clock.svg';
 
-var openTimeEstimationPopup = function(t){
+function openTimeEstimationPopup(t){
   return t.popup({
-    title: "Time estimation",
+    title: 'Time estimation',
     url: './time-estimation-popup.html'
   });
 }
 
-var openNewLogPopup = function(t){
+function openNewLogPopup(t){
   return t.popup({
-    title: "New log",
+    title: 'New log',
     url: './new-log-popup.html'
+  });
+}
+
+function openMainPopup(t){
+  return t.popup({
+    title: 'TimeTracker',
+    items: [
+      {
+        text: 'Time estimation',
+        callback: openTimeEstimationPopup
+      },
+      {
+        text: 'New log',
+        callback: openNewLogPopup
+      }
+    ]
   });
 }
 
@@ -26,7 +42,7 @@ TrelloPowerUp.initialize({
         return [
           {
             icon: GRAY_ICON,
-            title: "Time logs",
+            title: 'Time logs',
             claimed: [{}],
             content: {
               type: 'iframe',
@@ -39,12 +55,8 @@ TrelloPowerUp.initialize({
   'card-buttons': function(t, options) {
     return [{
       icon: GRAY_ICON,
-      text: 'Time estimation',
-      callback: openTimeEstimationPopup
-    }, {
-      icon: GRAY_ICON,
-      text: 'Add log',
-      callback: openNewLogPopup
+      text: 'TimeTracker',
+      callback: openMainPopup
     }];
   }
 });
