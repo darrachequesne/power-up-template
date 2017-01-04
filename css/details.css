@@ -1,6 +1,8 @@
 
 .details-logs-list {
   list-style-type: none;
+  margin-top: 0;
+  font-size: 11px;
 }
 
 .details-progress {
@@ -37,4 +39,8 @@
   top: 0;
   -webkit-transition: width .14s ease-in,background .14s ease-in;
   transition: width .14s ease-in,background .14s ease-in;
+}
+
+.details-progress-bar-current.complete {
+  background-color: #EB5A46;
 }

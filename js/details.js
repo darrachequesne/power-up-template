@@ -50,10 +50,14 @@ t.render(function(){
       duration += logs[i].duration;
     }
 
-    var p = estimate > 0 ? Math.min(Math.floor(duration * 100 / estimate), 100) : 0;
+    var p = estimate > 0 ? Math.floor(duration * 100 / estimate) : 0;
 
     progressPercentage.innerHTML = p + '%';
-    progress.style.width= p + '%';
+    progress.style.width= Math.min(p, 100) + '%';
+    progress.className = 'details-progress-bar-current';
+    if (p > 100) {
+      progress.className += ' complete';
+    }
 
   })
   .then(function(){
