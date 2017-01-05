@@ -2,6 +2,8 @@
 
 var GRAY_ICON = './images/clock.svg';
 
+var Promise = TrelloPowerUp.Promise;
+
 function openTimeEstimationPopup(t){
   return t.popup({
     title: 'Time estimation',
@@ -34,23 +36,29 @@ function openMainPopup(t){
 
 TrelloPowerUp.initialize({
   'attachment-sections': function(t, options){
-    return t.get('card', 'shared', 'time-logs', [])
-      .then(function (logs) {
-        if(logs.length === 0) {
-          return [];
-        }
-        return [
-          {
-            icon: GRAY_ICON,
-            title: 'Time logs',
-            claimed: [{}],
-            content: {
-              type: 'iframe',
-              url: t.signUrl('./details.html')
-            }
+    return Promise.all([
+      t.get('board', 'shared', 'details', {}),
+      t.card('id', 'name')
+    ])
+    .spread(function(details, card){
+      details[card.id] = details[card.id] || {};
+      var logs = details[card.id].logs || [];
+
+      if(logs.length === 0) {
+        return [];
+      }
+      return [
+        {
+          icon: GRAY_ICON,
+          title: 'Time logs',
+          claimed: [{}],
+          content: {
+            type: 'iframe',
+            url: t.signUrl('./details.html')
           }
-        ];
-      });
+        }
+      ];
+    });
   },
   'card-buttons': function(t, options) {
     return [{

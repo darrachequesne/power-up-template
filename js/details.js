@@ -34,10 +34,13 @@ function formatLog(log, index){
 
 t.render(function(){
   return Promise.all([
-    t.get('card', 'shared', 'time-logs', []),
-    t.get('card', 'shared', 'time-estimate', 0)
+    t.get('board', 'shared', 'details', {}),
+    t.card('id')
   ])
-  .spread(function(logs, estimate){
+  .spread(function(details, card){
+    details[card.id] = details[card.id] || {};
+    var logs = details[card.id].logs || [];
+    var estimate = details[card.id].estimate || 0;
 
     var duration = 0;
 
@@ -73,12 +76,20 @@ t.render(function(){
 
 function onRemoveLog(i){
   return function _onRemoveLog(){
-    t.get('card', 'shared', 'time-logs', [])
-      .then(function (logs){
-        if (i >= logs.length) return;
+    return Promise.all([
+      t.get('board', 'shared', 'details', {}),
+      t.card('id', 'name')
+    ])
+    .spread(function(details, card){
+      details[card.id] = details[card.id] || {};
+      details[card.id].logs = details[card.id].logs || [];
 
-        logs.splice(i, 1);
-        return t.set('card', 'shared', 'time-logs', logs);
-      })
+      if (i >= details[card.id].logs.length) return;
+
+      details[card.id].logs.splice(i, 1);
+      details[card.id].cardName = card.name;
+
+      return t.set('board', 'shared', 'details', details);
+    });
   }
 }

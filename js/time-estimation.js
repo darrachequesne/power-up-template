@@ -1,5 +1,6 @@
 /* global TrelloPowerUp */
 
+var Promise = TrelloPowerUp.Promise;
 var t = TrelloPowerUp.iframe();
 
 var hours = document.getElementById('time-estimation-input-hours');
@@ -10,14 +11,34 @@ function getEstimate(){
 }
 
 var onSaveEstimate = function(){
-  return t.set('card', 'shared', 'time-estimate', getEstimate())
+  return Promise.all([
+    t.get('board', 'shared', 'details', {}),
+    t.card('id', 'name')
+  ])
+  .spread(function(details, card){
+    details[card.id] = details[card.id] || {};
+    details[card.id].estimate = getEstimate();
+    details[card.id].cardName = card.name;
+
+    return t.set('board', 'shared', 'details', details);
+  })
   .then(function(){
     t.closePopup();
   });
 };
 
 var onRemoveEstimate = function(){
-  return t.set('card', 'shared', 'time-estimate', undefined)
+  return Promise.all([
+    t.get('board', 'shared', 'details', {}),
+    t.card('id', 'name')
+  ])
+  .spread(function(details, card){
+    details[card.id] = details[card.id] || {};
+    delete details[card.id].estimate;
+    details[card.id].cardName = card.name;
+
+    return t.set('board', 'shared', 'details', details);
+  })
   .then(function(){
     t.closePopup();
   });
@@ -27,8 +48,16 @@ document.getElementById('save-estimate').addEventListener('click', onSaveEstimat
 document.getElementById('remove-estimate').addEventListener('click', onRemoveEstimate);
 
 t.render(function(){
-  t.get('card', 'shared', 'time-estimate', 30)
-  .then(function (estimate) {
+  return Promise.all([
+    t.get('board', 'shared', 'details', {}),
+    t.card('id', 'name')
+  ])
+  .spread(function(details, card){
+
+    var estimate = details && details[card.id] && details[card.id].estimate
+      ? details[card.id].estimate
+      : 30;
+
     hours.value = Math.floor(estimate / 60);
     minutes.value = estimate % 60;
   })

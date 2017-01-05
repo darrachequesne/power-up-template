@@ -1,5 +1,6 @@
 /* global TrelloPowerUp */
 
+var Promise = TrelloPowerUp.Promise;
 var t = TrelloPowerUp.iframe();
 
 var today = new Date();
@@ -57,22 +58,32 @@ function getDuration() {
 }
 
 function onAddLog(){
-  return t.get('card', 'shared', 'time-logs', [])
-    .then(function(logs){
-      var newLog = {
-        year: yearSelector.value,
-        month: monthSelector.value,
-        day: daySelector.value,
-        h: hours.value,
-        min: minutes.value,
-        duration: getDuration()
-      }
-      logs.push(newLog);
-      return t.set('card', 'shared', 'time-logs', logs);
-    })
-    .then(function(){
-      t.closePopup();
-    });
+  return Promise.all([
+    t.get('board', 'shared', 'details', {}),
+    t.card('id', 'name')
+  ])
+  .spread(function(details, card){
+
+    details[card.id] = details[card.id] || {};
+    details[card.id].logs = details[card.id].logs || [];
+
+    var newLog = {
+      year: yearSelector.value,
+      month: monthSelector.value,
+      day: daySelector.value,
+      h: hours.value,
+      min: minutes.value,
+      duration: getDuration()
+    }
+
+    details[card.id].logs.push(newLog);
+    details[card.id].cardName = card.name;
+
+    return t.set('board', 'shared', 'details', details);
+  })
+  .then(function(){
+    t.closePopup();
+  });
 }
 
 yearSelector.addEventListener('change', updateDaysInMonth);
