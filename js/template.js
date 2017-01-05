@@ -34,6 +34,19 @@ function openMainPopup(t){
   });
 }
 
+function formatDuration(duration){
+  var output = '';
+  var hours = Math.floor(duration / 60);
+  var minutes = duration % 60;
+  if (hours > 0) {
+    output += hours + 'h';
+  }
+  if (minutes > 0) {
+    output += minutes + 'min';
+  }
+  return output;
+}
+
 TrelloPowerUp.initialize({
   'attachment-sections': function(t, options){
     return Promise.all([
@@ -56,6 +69,31 @@ TrelloPowerUp.initialize({
             type: 'iframe',
             url: t.signUrl('./details.html')
           }
+        }
+      ];
+    });
+  },
+  'card-badges': function(t, card) {
+    return Promise.all([
+      t.get('board', 'shared', 'details', {}),
+      t.card('id', 'name')
+    ])
+    .spread(function(details, card){
+      details[card.id] = details[card.id] || {};
+      var logs = details[card.id].logs || [];
+
+      if (logs.length === 0) {
+        return [];
+      }
+      var duration = 0;
+      for (var i = 0, l = logs.length; i < l; i++) {
+        duration += logs[i].duration;
+      }
+
+      return [
+        {
+          icon: GRAY_ICON,
+          text: formatDuration(duration)
         }
       ];
     });
