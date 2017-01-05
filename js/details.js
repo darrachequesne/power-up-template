@@ -32,6 +32,15 @@ function formatLog(log, index){
   return output;
 }
 
+// return '201601010915' for 2016-01-01 09h15
+function hash(log){
+  return '' + log.year + zpad(log.month) + zpad(log.day) + zpad(log.g) + zpad(log.min);
+}
+
+function compareLog(a, b){
+  return parseInt(hash(a), 10) - parseInt(hash(b), 10);
+}
+
 t.render(function(){
   return Promise.all([
     t.get('board', 'shared', 'details', {}),
@@ -45,6 +54,14 @@ t.render(function(){
     var duration = 0;
 
     logsList.innerHTML = '';
+
+    // save index since it will be used for log removal
+    for (var i = 0, l = logs.length; i < l; i++) {
+      logs[i].index = i;
+    }
+
+    logs.sort(compareLog);
+
     for (var i = 0, l = logs.length; i < l; i++) {
       var item = document.createElement('li');
       item.innerHTML = formatLog(logs[i], i);
@@ -52,7 +69,7 @@ t.render(function(){
       var remove = document.createElement('a');
       remove.innerHTML = 'Remove';
       remove.className = 'details-btn-remove-log';
-      remove.addEventListener('click', onRemoveLog(i));
+      remove.addEventListener('click', onRemoveLog(logs[i].index));
       item.append(remove);
 
       logsList.append(item);
