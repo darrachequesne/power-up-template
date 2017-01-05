@@ -1,0 +1,19 @@
+
+body {
+  background: rgba(0,0,0,.2);
+}
+
+#content {
+  background: #EDEFF0;
+  bottom: 10px;
+  top: 86px;
+  right: 10px;
+  left: 10px;
+  position: absolute;
+  padding: 8px;
+}
+
+.calendar-wrapper {
+  height: 100%;
+  width: 100%;
+}

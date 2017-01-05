@@ -1,6 +1,7 @@
 /* global TrelloPowerUp */
 
-var GRAY_ICON = './images/clock.svg';
+var GRAY_ICON = './images/clock-gray.svg';
+var WHITE_ICON = './images/clock-white.svg';
 
 var Promise = TrelloPowerUp.Promise;
 
@@ -31,6 +32,12 @@ function openMainPopup(t){
         callback: openNewLogPopup
       }
     ]
+  });
+}
+
+function openOverlay(t){
+  return t.overlay({
+    url: './overlay.html'
   });
 }
 
@@ -72,6 +79,13 @@ TrelloPowerUp.initialize({
         }
       ];
     });
+  },
+  'board-buttons': function(t, options){
+    return [{
+      icon: WHITE_ICON,
+      text: 'TimeTracker',
+      callback: openOverlay
+    }];
   },
   'card-badges': function(t, card) {
     return Promise.all([

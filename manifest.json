@@ -8,6 +8,7 @@
   "author": "Damien Arrachequesne",
   "capabilities": [
     "attachment-sections",
+    "board-buttons",
     "callback",
     "card-buttons",
     "card-badges"
