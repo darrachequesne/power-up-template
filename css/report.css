@@ -13,6 +13,10 @@ body {
   padding: 8px;
 }
 
+.report-task {
+  min-width: 20%;
+}
+
 .report-progress-bar {
   background: #D6DADC;
   border-radius: 5px;

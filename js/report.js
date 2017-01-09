@@ -36,7 +36,7 @@ function displayDetails(details){
 
     return {
       cardName: card.cardName,
-      sizeCoeff: Math.max(estimate, duration),
+      sizeCoeff: Math.max(estimate, duration) || '-',
       estimate: estimate > 0 ? formatDuration(estimate) : '',
       duration: formatDuration(duration),
       fullPercentage: percentage,
