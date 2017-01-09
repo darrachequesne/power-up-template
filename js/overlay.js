@@ -34,36 +34,47 @@ $('#calendar').fullCalendar({
   navLinks: true, // can click day/week names to navigate views
   eventLimit: true, // allow "more" link when too many events
   defaultView: 'agendaWeek',
-  eventColor: '#0079BF'
-});
+  eventColor: '#0079BF',
 
-t.render(function(){
-  t.get('board', 'shared', 'details', {})
-  .then(function(details){
+  eventSources: [
+    {
+      events: function(start, end, timezone, callback) {
+        t.get('board', 'shared', 'details', {})
+        .then(function(details){
 
-    var events = [];
-    var card, logs, log, start;
+          var events = [];
+          var card, logs, log, start;
+          var colorHash = new ColorHash();
 
-    for (cardId in details) {
-      card = details[cardId];
-      logs = card.logs || [];
-      for (var i = 0, l = logs.length; i < l; i++) {
-        log = logs[i];
+          for (cardId in details) {
+            card = details[cardId];
+            logs = card.logs || [];
+            for (var i = 0, l = logs.length; i < l; i++) {
+              log = logs[i];
 
-        var start = moment([log.year, log.month - 1, log.day, log.h, log.min]);
-        if (!start.isValid()) continue;
+              var start = moment([log.year, log.month - 1, log.day, log.h, log.min]);
+              if (!start.isValid()) continue;
 
-        var end = start.clone().add(parseInt(log.duration, 10) || 0, 'minutes');
-        events.push({
-          title: card.cardName,
-          start: start.format(),
-          end: end.format()
+              var end = start.clone().add(parseInt(log.duration, 10) || 0, 'minutes');
+              var rgb = colorHash.rgb(card.cardName);
+              events.push({
+                title: card.cardName,
+                start: start.format(),
+                end: end.format(),
+                color: 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')'
+              });
+            }
+          }
+
+          callback(events);
         });
       }
     }
+  ]
+});
 
-    $('#calendar').fullCalendar('renderEvents', events, true);
-  });
+t.render(function(){
+  $('#calendar').fullCalendar('refetchEvents');
 });
 
 // close overlay if user clicks outside our content
