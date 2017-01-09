@@ -34,7 +34,7 @@ $('#calendar').fullCalendar({
   navLinks: true, // can click day/week names to navigate views
   eventLimit: true, // allow "more" link when too many events
   defaultView: 'agendaWeek',
-  eventColor: '#0079BF',
+  eventColor: '#0079BF', // default value
 
   eventSources: [
     {
@@ -57,11 +57,13 @@ $('#calendar').fullCalendar({
 
               var end = start.clone().add(parseInt(log.duration, 10) || 0, 'minutes');
               var rgb = colorHash.rgb(card.cardName);
+              var sum = rgb[0] + rgb[1] + rgb[2];
               events.push({
                 title: card.cardName,
                 start: start.format(),
                 end: end.format(),
-                color: 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')'
+                color: 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')',
+                textColor: sum > 256 ? 'black' : 'white'
               });
             }
           }
