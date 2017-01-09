@@ -44,6 +44,9 @@ function openOverlay(t){
         callback: function(t){
           return t.overlay({
             url: './overlay.html'
+          })
+          .then(function(){
+            return t.closePopup();
           });
         }
       },
@@ -52,6 +55,9 @@ function openOverlay(t){
         callback: function(t){
           return t.overlay({
             url: './report.html'
+          })
+          .then(function(){
+            return t.closePopup();
           });
         }
       },
