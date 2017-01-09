@@ -36,9 +36,9 @@ function displayDetails(details){
 
     return {
       cardName: card.cardName,
-      sizeCoeff: Math.max(estimate, duration) || '-',
+      sizeCoeff: Math.max(estimate, duration),
       estimate: estimate > 0 ? formatDuration(estimate) : '',
-      duration: formatDuration(duration),
+      duration: formatDuration(duration) || '-',
       fullPercentage: percentage,
       safePercentage: Math.min(percentage, 100)
     };
@@ -47,12 +47,8 @@ function displayDetails(details){
     return -(a.sizeCoeff - b.sizeCoeff);
   });
 
-  console.log(lines.map(function(line){
-    return line.sizeCoeff;
-  }))
-
   var maxSizeCoeff = Math.max.apply(null, lines.map(function(line){
-    return line.sizeCoeff;
+    return line.sizeCoeff || 0;
   }));
 
   lines.map(function(line){
@@ -60,8 +56,33 @@ function displayDetails(details){
   })
 
   var html = linesTemplate.render({ lines: lines });
-  content.innerHTML = html;
+  document.getElementById('content').innerHTML = html;
 }
+
+displayDetails([
+{
+  logs: [
+  ],
+  cardName: 'Task2',
+},
+{
+  logs: [
+    {
+      duration: 40
+    }
+  ],
+  cardName: 'Task1',
+},
+{
+  logs: [
+    {
+      duration: 50
+    }
+  ],
+  cardName: 'Task3',
+  estimate: 30
+},
+])
 
 function onRender(){
   t.get('board', 'shared', 'details', {})
