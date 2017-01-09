@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="//trello.com/power-ups/power-up.css">
+    <link rel="stylesheet" href="./css/report.css">
+    <script src="//trello.com/power-ups/power-up.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <script id="lines-template" type="text/x-jsrender">
+      {{for lines}}
+      <div class="report-task" style="width: {{:relativeWidth}}%">
+        <div class="report-progress-bar">
+          <div class="report-progress-bar-current{{:fullPercentage > 100 ? ' complete' : ''}}" style="width: {{:safePercentage}}%"></div>
+          <div class="report-task-name">{{:cardName}}</div>
+          <div class="report-task-percentage">
+            {{if estimate.length}}
+              {{:duration}} / {{:estimate}} ({{:fullPercentage}}%)
+            {{else}}
+              {{:duration}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      {{/for}}
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.83/jsrender.min.js"></script>
+    <script src="./js/report.js"></script>
+  </body>
+</html>

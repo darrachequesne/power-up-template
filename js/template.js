@@ -36,8 +36,26 @@ function openMainPopup(t){
 }
 
 function openOverlay(t){
-  return t.overlay({
-    url: './overlay.html'
+  return t.popup({
+    title: 'TimeTracker',
+    items: [
+      {
+        text: 'Open calendar',
+        callback: function(t){
+          return t.overlay({
+            url: './overlay.html'
+          });
+        }
+      },
+      {
+        text: 'Show report',
+        callback: function(t){
+          return t.overlay({
+            url: './report.html'
+          });
+        }
+      },
+    ]
   });
 }
 
